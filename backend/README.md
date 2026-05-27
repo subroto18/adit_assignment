@@ -1,126 +1,122 @@
-# 🚀 Customer API (Backend)
+# Task Management Backend API
 
-A simple **Node.js + Express** REST API for managing customers.
-Built with clean architecture, validation, and centralized error handling.
+A scalable and maintainable Task Management Backend built with **Node.js**, **Express.js**, and **MongoDB** with **JWT Authentication**.
+
+This backend powers a task management application where authenticated users can create, manage, update, and delete their own tasks securely.
 
 ---
 
-## 🧠 Tech Stack
+# Features
+
+## Authentication
+
+- User Registration
+- User Login
+- JWT-based Authentication
+- Protected Routes
+- Password Hashing using bcrypt
+
+## Task Management
+
+- Create Task
+- Get All Tasks
+- Filter Tasks by Status
+- Pagination Support
+- Update Task
+- Delete Task
+- User-specific Task Access Control
+
+## Architecture Features
+
+- Layered Architecture (Routes → Controllers → Services → Models)
+- Centralized Error Handling
+- Custom AppError Utility
+- Request Validation using Zod
+- Reusable Response Handler
+- Config-based Environment Management
+- Constants for Enums and Messages
+
+---
+
+# Tech Stack
 
 - Node.js
-- Express
-- UUID
-- Dotenv
-- CORS
-- Nodemon
+- Express.js
+- MongoDB
+- Mongoose
+- JWT (jsonwebtoken)
+- bcrypt
+- Zod
+- dotenv
 
 ---
 
-## ✨ Features
-
-- RESTful API structure
-- In-memory data storage
-- Request validation middleware
-- Global error handling
-- Custom error class (`AppError`)
-- Standardized API responses
-- Health check endpoint
-
----
-
-## 📁 Project Structure
+# Project Structure
 
 ```bash
-backend/
-├── config/         # DB & environment config
-├── controllers/    # Business logic
-├── middleware/     # Validation & error handling
-├── routes/         # API routes (v1)
-├── utils/          # Helpers (errors, responses)
-├── .env
+src/
+│
+├── config/
+│   └── auth.config.js
+│
+├── constants/
+│   ├── enums.js
+│   ├── errorMap.js
+│   └── messages.js
+│
+├── controllers/
+│   ├── auth.controller.js
+│   └── task.controller.js
+│
+├── middlewares/
+│   ├── auth.middleware.js
+│   ├── error.middleware.js
+│   └── validate.middleware.js
+│
+├── model/
+│   ├── task.model.js
+│   └── user.model.js
+│
+├── routes/
+│   └── v1/
+│       ├── auth.routes.js
+│       ├── task.routes.js
+│       └── index.js
+│
+├── services/
+│   ├── auth.service.js
+│   └── task.service.js
+│
+├── utils/
+│   ├── AppError.js
+│   ├── asyncHandler.js
+│   ├── responseHandler.js
+│   └── token.util.js
+│
+├── validations/
+│   └── task.validation.js
+│
 └── server.js
 ```
 
----
+# Create `.env` File
 
-## 📌 API Endpoints
+Create a `.env` file in the project root.
 
-### Base URL
-
-```
-/api/v1
-```
-
-### Customers
-
-- `GET /customers` → Get all customers
-- `POST /customers` → Create customer
-- `DELETE /customers/:id` → Delete customer
-
-### Health
-
-- `GET /health` → Server status check
-
----
-
-## 📨 Request Example
-
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "phone": "1234567890"
-}
-```
-
----
-
-## ❤️ Response Format
-
-### Success
-
-```json
-{
-  "success": true,
-  "message": "Success",
-  "data": {}
-}
-```
-
-### Error
-
-```json
-{
-  "success": false,
-  "message": "Error message",
-  "code": "ERROR_CODE"
-}
-```
-
----
-
-## ⚙️ Setup
-
-```bash
-npm install
-npm run dev
-```
-
-Create `.env`:
+Example:
 
 ```env
 PORT=8000
+NODE_ENV=development
+
+MONGO_URI=your_mongodb_connection_string
+
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=7d
+
+BCRYPT_SALT_ROUNDS=10
+
+
+git clone <your-repository-url>
+cd backend
 ```
-
----
-
-## ⚠️ Notes
-
-- Uses **in-memory storage** (no database)
-- Easy to extend with DB (MongoDB, PostgreSQL)
-
----
-
-## 👨‍💻 Author
-
-Subroto chakraborty
