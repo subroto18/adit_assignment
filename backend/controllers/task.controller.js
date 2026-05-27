@@ -24,4 +24,28 @@ const getTasks = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { createTask, getTasks };
+const deleteTask = asyncHandler(async (req, res) => {
+  await taskService.deleteTask(req.params.taskId, req.user._id);
+  return sendResponse({
+    res,
+    statusCode: 200,
+    message: TASK.DELETE_SUCCESS,
+  });
+});
+
+const updateTask = asyncHandler(async (req, res) => {
+  const updatedTask = await taskService.updateTask(
+    req.params.taskId,
+    req.user._id,
+    req.body,
+  );
+
+  return sendResponse({
+    res,
+    statusCode: 200,
+    message: TASK.UPDATE_SUCCESS,
+    data: updatedTask,
+  });
+});
+
+module.exports = { createTask, getTasks, deleteTask, updateTask };

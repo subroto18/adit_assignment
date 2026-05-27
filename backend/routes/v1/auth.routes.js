@@ -8,5 +8,4 @@ const {
 const router = express.Router();
 router.post("/register", validate(registerSchema), createUser);
 router.post("/login", validate(loginSchema), userLogin);
-
 module.exports = router;

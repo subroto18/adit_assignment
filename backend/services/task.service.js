@@ -1,5 +1,6 @@
 const { TASK_STATUS } = require("../constants/enums");
 const Task = require("../model/task.model");
+const AppError = require("../utils/AppError");
 
 const createTask = async (payload, userId) => {
   const { title, description } = payload || {};
@@ -21,7 +22,6 @@ const createTask = async (payload, userId) => {
 
 const getTasks = async (userId, queryParams) => {
   const { status, page = 1, limit = 10 } = queryParams || {};
-
   const query = {
     user: userId,
   };
@@ -63,4 +63,44 @@ const getTasks = async (userId, queryParams) => {
   };
 };
 
-module.exports = { createTask, getTasks };
+const deleteTask = async (taskId, userId) => {
+  const deletedTask = await Task.findOneAndDelete({
+    _id: taskId,
+    user: userId,
+  });
+  if (!deletedTask) {
+    throw new AppError({
+      code: "TASK_NOT_FOUND",
+    });
+  }
+  return true;
+};
+
+const updateTask = async (taskId, userId, payload) => {
+  const select = "title description status createdAt updatedAt";
+  const updatedTask = await Task.findOneAndUpdate(
+    {
+      _id: taskId,
+      user: userId,
+    },
+    payload,
+    {
+      new: true,
+      runValidators: true,
+      projection: select,
+    },
+  ).lean();
+
+  if (!updatedTask) {
+    throw new AppError({
+      code: "TASK_NOT_FOUND",
+    });
+  }
+  const { _id, ...task } = updatedTask;
+  return {
+    id: _id,
+    ...task,
+  };
+};
+
+module.exports = { createTask, getTasks, deleteTask, updateTask };
