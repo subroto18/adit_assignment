@@ -18,6 +18,10 @@ const MESSAGES = {
     FETCH_SUCCESS: "Tasks fetched successfully",
     FETCH_ONE_SUCCESS: "Task fetched successfully",
   },
+
+  SERVER: {
+    RUNNING: "Task Management API is running successfully",
+  },
 };
 
 module.exports = MESSAGES;

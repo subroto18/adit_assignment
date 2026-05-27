@@ -128,5 +128,5 @@ cd backend
 Production Base URL:
 
 ```bash
-https://adit-assignment.onrender.com/api/v1
+https://adit-assignment.onrender.com/api/health
 ```
