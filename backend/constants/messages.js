@@ -1,6 +1,7 @@
 const MESSAGES = {
   AUTH: {
     USER_REGISTERED: "User registered successfully",
+    USER_LOGEDIN: "Login successful",
     INVALID_CREDENTIALS: "Invalid email or password",
     USER_ALREADY_EXISTS: "User already exists",
   },

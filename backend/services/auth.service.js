@@ -1,5 +1,6 @@
-const { default: User } = require("../model/user.model");
+const User = require("../model/user.model");
 const AppError = require("../utils/AppError");
+const { generateAccessToken } = require("../utils/generateToken");
 
 const register = async (payload) => {
   const { name, email, password } = payload || {};
@@ -22,6 +23,38 @@ const register = async (payload) => {
     email: user.email,
   };
 };
+
+const login = async (payload) => {
+  const { email, password } = payload || {};
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new AppError({
+      code: "INVALID_CREDENTIALS",
+    });
+  }
+
+  const isPasswordValid = await user.comparePassword(password);
+
+  if (!isPasswordValid) {
+    throw new AppError({
+      code: "INVALID_CREDENTIALS",
+    });
+  }
+
+  const token = generateAccessToken(user);
+
+  return {
+    token,
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    },
+  };
+};
+
 module.exports = {
   register,
+  login,
 };
