@@ -117,6 +117,16 @@ JWT_EXPIRES_IN=7d
 BCRYPT_SALT_ROUNDS=10
 
 
+
+
 git clone <your-repository-url>
 cd backend
+```
+
+# Live API URL
+
+Production Base URL:
+
+```bash
+https://adit-assignment.onrender.com/api/v1
 ```
