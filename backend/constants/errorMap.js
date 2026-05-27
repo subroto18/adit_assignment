@@ -22,6 +22,10 @@ const errorMap = {
     statusCode: 404,
     message: "Route not found",
   },
+  tasks: tasks.map(({ _id, ...task }) => ({
+    id: _id,
+    ...task,
+  })),
 };
 
 module.exports = errorMap;

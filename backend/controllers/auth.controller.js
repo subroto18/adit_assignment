@@ -1,10 +1,10 @@
 const MESSAGES = require("../constants/messages");
-const { register, login } = require("../services/auth.service");
+const authService = require("../services/auth.service");
 const asyncHandler = require("../utils/asyncHandler");
 const sendResponse = require("../utils/responseHandler");
 
 const createUser = asyncHandler(async (req, res) => {
-  const user = await register(req.body);
+  const user = await authService.register(req.body);
   return sendResponse({
     res,
     statusCode: 201,
@@ -14,7 +14,7 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 const userLogin = asyncHandler(async (req, res) => {
-  const user = await login(req.body);
+  const user = await authService.login(req.body);
   return sendResponse({
     res,
     statusCode: 200,

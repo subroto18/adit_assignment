@@ -17,8 +17,14 @@ app.use("/api/v1", v1Routes);
 app.use("/api/health", healthRoutes);
 
 // Catch Invalid routes
+
 app.use((req, res, next) => {
-  next(new AppError("ROUTE_NOT_FOUND", `Route ${req.originalUrl} not found`));
+  next(
+    new AppError({
+      code: "ROUTE_NOT_FOUND",
+      message: `Route ${req.originalUrl} not found`,
+    }),
+  );
 });
 
 //  Global error handler

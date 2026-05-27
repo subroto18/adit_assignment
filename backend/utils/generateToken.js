@@ -5,7 +5,6 @@ const generateAccessToken = (user) => {
   return jwt.sign(
     {
       userId: user._id,
-      email: user.email,
     },
     AUTH_CONFIG.JWT_SECRET,
     {

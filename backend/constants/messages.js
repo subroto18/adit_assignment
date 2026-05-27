@@ -10,6 +10,14 @@ const MESSAGES = {
     INTERNAL_ERROR: "Internal Server Error",
     ROUTE_NOT_FOUND: "Route not found",
   },
+
+  TASK: {
+    CREATE_SUCCESS: "Task created successfully",
+    UPDATE_SUCCESS: "Task updated successfully",
+    DELETE_SUCCESS: "Task deleted successfully",
+    FETCH_SUCCESS: "Tasks fetched successfully",
+    FETCH_ONE_SUCCESS: "Task fetched successfully",
+  },
 };
 
 module.exports = MESSAGES;
