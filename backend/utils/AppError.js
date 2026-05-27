@@ -1,18 +1,14 @@
-const errorMap = require("./errorMap");
+const errorMap = require("../constants/errorMap");
+
 class AppError extends Error {
-  constructor(code, customMessage) {
+  constructor({ code = "INTERNAL_ERROR", message, errors = null }) {
     const err = errorMap[code];
-    if (!err) {
-      super(customMessage || "Unknown error");
-      this.statusCode = 500;
-      this.status = "error";
-      this.code = "INTERNAL_ERROR";
-      return;
-    }
-    super(customMessage || err.message);
-    this.statusCode = err.statusCode || 500;
-    this.status = "error";
+    super(message || err?.message || "Internal Server Error");
+    this.statusCode = err?.statusCode || 500;
     this.code = code;
+    this.errors = errors;
+    Error.captureStackTrace(this, this.constructor);
   }
 }
+
 module.exports = AppError;

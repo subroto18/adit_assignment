@@ -1,4 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const AUTH_CONFIG = require("../config/auth.config");
 
 const userSchema = new mongoose.Schema(
   {
@@ -27,5 +29,20 @@ const userSchema = new mongoose.Schema(
   },
 );
 
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(
+    this.password,
+    AUTH_CONFIG.BCRYPT_SALT_ROUNDS,
+  );
+  next();
+});
+
+userSchema.methods.comparePassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
+
 const User = mongoose.model("User", userSchema);
-export default User;
+
+module.exports = User;
