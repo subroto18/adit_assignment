@@ -1,214 +1,109 @@
-# Task Management
+# Task Management Platform
 
-Task Management Platform built with React, TypeScript, Tailwind CSS, and Ant Design.
+Full-stack task management application built with:
+
+- React + TypeScript
+- Node.js + Express
+- MongoDB
+- JWT Authentication
 
 ---
 
 # Live Demo
 
-Frontend URL:
+Frontend:
 
-Backend API:https://adit-assignment.onrender.com/api/health
-
----
-
-# Tech Stack
-
-- React 18
-- TypeScript
-- React Router DOM
-- Ant Design
-- Tailwind CSS
-- Axios
-- Context API
-- Vite
-
----
-
-# Features
-
-## Authentication
-
-- User Registration
-- User Login
-- JWT Authentication
-- Protected Routes
-- Public Route Handling
-- Persistent Authentication
-- Auth Initialization Loader
-
----
-
-## Task Management
-
-- Create Task
-- Delete Task
-- Update Task Status
-- Mark Task as Completed
-- Filter Tasks
-  - All
-  - Pending
-  - Completed
-
-- Responsive Task Table
-- Tooltip for Long Text
-- Toast Notifications
-
----
-
-# Pending Features
-
-The following features are planned for future implementation:
-
-- Pagination
-- Edit Task
-- Dark Mode UI
-- Search Tasks
-- Infinite Scroll
-- Optimistic UI Updates
-- Profile Settings
-- Role-Based Authentication
+Backend API:
+https://adit-assignment.onrender.com/api/health
 
 ---
 
 # Project Structure
 
-```bash
-src/
-│
-├── api/
-│   ├── axios.ts
-│   ├── endpoints.ts
-│   └── services/
-│
-├── components/
-│   ├── common/
-│   └── ui/
-│
-├── constants/
-│
-├── context/
-│
-├── features/
-│   ├── auth/
-│   └── dashboard/
-│
-├── hooks/
-│
-├── layout/
-│
-├── pages/
-│
-├── routes/
-│
-├── utils/
-│
-└── config/
+```bash id="92jfs3"
+.
+├── frontend/
+├── backend/
+└── README.md
 ```
 
 ---
 
-# Installation
+# Documentation
 
-Clone the repository:
+Detailed documentation for each application:
 
-```bash
-git clone <repository-url>
-```
+- [Frontend Documentation](./frontend/README.md)
+- [Backend Documentation](./backend/README.md)
 
-Move into the project directory:
+---
 
-```bash
+# Quick Start
+
+## Frontend
+
+```bash id="12mxk2"
 cd frontend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
----
-
-# Environment Variables
-
-Create a `.env` file in the root directory.
-
-```env
-VITE_API_BASE_URL=https://adit-assignment.onrender.com/api/v1
-```
-
----
-
-# Run Development Server
-
-```bash
 npm run dev
 ```
 
-Frontend will run on:
+---
 
-```bash
-http://localhost:5173
+## Backend
+
+```bash id="28djw9"
+cd backend
+npm install
+npm run dev
 ```
 
 ---
 
-# Build For Production
+# Tech Stack
 
-```bash
-npm run build
-```
+## Frontend
 
----
+- React
+- TypeScript
+- Tailwind CSS
+- Ant Design
+- Axios
 
-# Authentication Flow
+## Backend
 
-1. User logs in
-2. JWT token is stored in localStorage
-3. AuthContext manages global authentication state
-4. Protected routes validate user access
-5. `/auth/me` API validates session on refresh
-
----
-
-# UI Architecture
-
-The project follows a scalable feature-based architecture:
-
-- Feature-driven folder structure
-- Reusable UI components
-- Centralized constants/configuration
-- Custom hooks for business logic
-- Global API layer
-- Separated route protection
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- Zod
 
 ---
 
-# API Integration
+# Features
 
-Axios is configured globally with:
-
-- Base URL
-- Authorization headers
-- Request interceptors
-- Response interceptors
+- Authentication
+- Protected Routes
+- Task CRUD
+- Task Status Management
+- Filtering
+- Responsive UI
+- Scalable Architecture
 
 ---
 
 # Future Improvements
 
-- React Query / TanStack Query
-- Unit Testing
-- E2E Testing
-- Theme Switching
-- Better State Management
-- Accessibility Improvements
+- Pagination
+- Dark Mode
+- Edit Task
+- Search Tasks
+- Optimistic Updates
+- React Query Integration
 
 ---
 
 # Author
 
 Subroto Chakraborty
-
-Frontend Developer | React Developer | Content Creator

@@ -7,17 +7,13 @@ const AUTH_CONFIG = require("../config/auth.config");
 
 const authMiddleware = asyncHandler(async (req, res, next) => {
   const authHeader = req.headers.authorization;
-
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     throw new AppError({
       code: "UNAUTHORIZED",
     });
   }
-
   const token = authHeader.split(" ")[1];
-
   let decoded;
-
   try {
     decoded = jwt.verify(token, AUTH_CONFIG.JWT_SECRET);
   } catch (error) {
