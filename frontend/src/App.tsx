@@ -3,7 +3,13 @@ import { Helmet } from "react-helmet";
 import logo from "./assets/images/logo.png";
 import AppRoutes from "./route/AppRoutes";
 import { SEO_CONFIG } from "./config/seo.config";
+import { useAuth } from "./context/AuthContext";
+import AuthSuspense from "./components/common/AuthSuspense";
 const App: React.FC = () => {
+  const { isInitializing } = useAuth();
+  if (isInitializing) {
+    return <AuthSuspense />;
+  }
   return (
     <>
       <Helmet>

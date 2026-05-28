@@ -1,8 +1,7 @@
 import { Form } from "antd";
-
-import { DASHBOARD_TEXT } from "../constants/dashboard.text";
 import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
+import { DASHBOARD_TEXT } from "../constants/dashboard.text";
 
 type FormValues = {
   title: string;
@@ -18,9 +17,8 @@ type Props = {
 
 const CreateTaskModal = ({ open, onClose, onCreate, loading }: Props) => {
   const [form] = Form.useForm();
-  const handleSubmit = async () => {
+  const handleSubmit = async (values: FormValues) => {
     try {
-      const values = await form.validateFields();
       await onCreate(values);
       form.resetFields();
       onClose();
@@ -34,12 +32,10 @@ const CreateTaskModal = ({ open, onClose, onCreate, loading }: Props) => {
       title={DASHBOARD_TEXT.modal.title}
       open={open}
       onCancel={onClose}
-      onOk={handleSubmit}
-      okText={DASHBOARD_TEXT.modal.submit}
-      confirmLoading={loading}
+      footer={null}
       width={600}
     >
-      <Form<FormValues> form={form} layout="vertical">
+      <Form<FormValues> form={form} layout="vertical" onFinish={handleSubmit}>
         <Form.Item
           label={DASHBOARD_TEXT.modal.taskTitle}
           name="title"
@@ -50,8 +46,12 @@ const CreateTaskModal = ({ open, onClose, onCreate, loading }: Props) => {
             },
           ]}
         >
-          <Input placeholder={DASHBOARD_TEXT.modal.titlePlaceholder} />
+          <Input
+            autoFocus
+            placeholder={DASHBOARD_TEXT.modal.titlePlaceholder}
+          />
         </Form.Item>
+
         <Form.Item
           label={DASHBOARD_TEXT.modal.taskDescription}
           name="description"
@@ -61,6 +61,24 @@ const CreateTaskModal = ({ open, onClose, onCreate, loading }: Props) => {
             placeholder={DASHBOARD_TEXT.modal.descriptionPlaceholder}
           />
         </Form.Item>
+
+        <div className="flex justify-end gap-3 pt-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="rounded-lg bg-cyan-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-cyan-400 disabled:opacity-50"
+          >
+            {loading ? "Creating..." : DASHBOARD_TEXT.modal.submit}
+          </button>
+        </div>
       </Form>
     </Modal>
   );

@@ -1,5 +1,3 @@
-// features/auth/components/RegisterForm.tsx
-
 import { Form, Input } from "antd";
 import { Link } from "react-router-dom";
 import Button from "@/components/ui/Button";
@@ -7,7 +5,6 @@ import { ROUTES } from "@/constants/routes";
 import AuthError from "./AuthError";
 import { AUTH_TEXT } from "../constants/auth.text";
 import { useRegister } from "../hooks/useRegister";
-
 import { REGISTER_VALIDATION } from "../validations/auth.validation";
 
 type RegisterFormValues = {
@@ -25,10 +22,8 @@ const RegisterForm = () => {
       onFinish={handleRegister}
       className="space-y-2"
     >
-      {/* Error */}
       {error && <AuthError error={error} />}
 
-      {/* Name */}
       <Form.Item
         label={
           <span className="text-sm font-medium text-slate-300">
@@ -45,7 +40,6 @@ const RegisterForm = () => {
         />
       </Form.Item>
 
-      {/* Email */}
       <Form.Item
         label={
           <span className="text-sm font-medium text-slate-300">
@@ -62,7 +56,6 @@ const RegisterForm = () => {
         />
       </Form.Item>
 
-      {/* Password */}
       <Form.Item
         label={
           <span className="text-sm font-medium text-slate-300">
@@ -79,7 +72,6 @@ const RegisterForm = () => {
         />
       </Form.Item>
 
-      {/* Submit */}
       <Form.Item className="!mb-2 pt-2">
         <Button
           htmlType="submit"
@@ -90,7 +82,6 @@ const RegisterForm = () => {
         </Button>
       </Form.Item>
 
-      {/* Footer */}
       <div className="pt-2 text-center text-sm text-slate-400">
         {AUTH_TEXT.register.footerText}{" "}
         <Link

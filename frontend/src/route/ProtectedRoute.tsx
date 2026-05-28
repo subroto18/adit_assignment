@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import { useAuth } from "@/context/AuthContext";
-import AuthSuspense from "@/components/common/AuthSuspense";
 
 type Props = {
   children: ReactNode;
@@ -12,10 +11,7 @@ type Props = {
 
 const ProtectedRoute = ({ children }: Props) => {
   const location = useLocation();
-  const { isAuthenticated, isInitializing } = useAuth();
-  if (isInitializing) {
-    return <AuthSuspense />;
-  }
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     return (

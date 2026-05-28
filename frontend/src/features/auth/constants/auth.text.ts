@@ -22,4 +22,5 @@ export const AUTH_TEXT = {
     footerText: "Already have an account?",
     footerAction: "Sign In",
   },
+  footer: "Secure authentication powered by modern JWT architecture.",
 } as const;

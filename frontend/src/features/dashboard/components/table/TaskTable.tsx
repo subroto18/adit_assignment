@@ -1,14 +1,10 @@
-// table/TaskTable.tsx
-
 import { Table } from "antd";
-
 import { DASHBOARD_TEXT } from "../../constants/dashboard.text";
 import type { Task } from "../../types/task.types";
 import { getTaskTableColumns } from "./taskTable.columns";
 
 type Props = {
   tasks: Task[];
-
   loading: boolean;
   onDelete: (id: string) => void;
   onToggleStatus: (task: Task) => void;
@@ -29,6 +25,7 @@ const TaskTable = ({ tasks, loading, onDelete, onToggleStatus }: Props) => {
         columns={getTaskTableColumns({
           onDelete,
           onToggleStatus,
+          loading,
         })}
       />
     </div>

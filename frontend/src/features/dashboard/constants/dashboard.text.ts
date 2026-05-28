@@ -24,4 +24,13 @@ export const DASHBOARD_TEXT = {
     descriptionPlaceholder: "Enter task description",
     titleRequired: "Please enter task title",
   },
+  toast: {
+    fetchError: "Failed to fetch tasks",
+    createSuccess: "Task created successfully",
+    createError: "Failed to create task",
+    updateSuccess: "Task updated successfully",
+    updateError: "Failed to update task",
+    deleteSuccess: "Task deleted successfully",
+    deleteError: "Failed to delete task",
+  },
 } as const;

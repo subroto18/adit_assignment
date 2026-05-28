@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import AuthFooter from "../components/AuthFooter";
 import AuthHeader from "../components/AuthHeader";
+import { AUTH_TEXT } from "../constants/auth.text";
 
 const AuthLayout = () => {
   return (
@@ -17,12 +17,9 @@ const AuthLayout = () => {
             <div className="mt-6">
               <Outlet />
             </div>
-            <div className="mt-8 border-t border-white/10 pt-6">
-              <AuthFooter />
-            </div>
           </div>
           <p className="mt-6 text-center text-xs text-slate-500">
-            Secure authentication powered by modern JWT architecture.
+            {AUTH_TEXT.footer}
           </p>
         </div>
       </div>

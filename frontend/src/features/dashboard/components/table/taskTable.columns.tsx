@@ -1,24 +1,40 @@
-// table/taskTable.columns.tsx
-
-import { Tag } from "antd";
+import Tooltip from "@/components/ui/Tooltip";
 import { DASHBOARD_TEXT } from "../../constants/dashboard.text";
 import type { Task } from "../../types/task.types";
 import TaskAction from "./TaskAction";
+import Tag from "@/components/ui/Tag";
 
 type Props = {
   onDelete: (id: string) => void;
   onToggleStatus: (task: Task) => void;
+  loading: boolean;
 };
 
-export const getTaskTableColumns = ({ onDelete, onToggleStatus }: Props) => {
+const truncateText = (text: string, limit: number) => {
+  if (text.length <= limit) {
+    return text;
+  }
+  return `${text.substring(0, limit)}...`;
+};
+
+export const getTaskTableColumns = ({
+  onDelete,
+  onToggleStatus,
+  loading,
+}: Props) => {
   return [
     {
       title: DASHBOARD_TEXT.table.title,
       dataIndex: "title",
       key: "title",
       width: "30%",
+
       render: (value: string) => (
-        <span className="font-medium text-slate-800">{value}</span>
+        <Tooltip title={value}>
+          <span className="font-medium text-slate-800">
+            {truncateText(value, 35)}
+          </span>
+        </Tooltip>
       ),
     },
 
@@ -27,7 +43,18 @@ export const getTaskTableColumns = ({ onDelete, onToggleStatus }: Props) => {
       dataIndex: "description",
       key: "description",
       width: "35%",
-      render: (value: string) => value || "-",
+
+      render: (value: string) => {
+        if (!value) {
+          return "-";
+        }
+
+        return (
+          <Tooltip title={value}>
+            <span>{truncateText(value, 60)}</span>
+          </Tooltip>
+        );
+      },
     },
 
     {
@@ -36,7 +63,7 @@ export const getTaskTableColumns = ({ onDelete, onToggleStatus }: Props) => {
       width: "15%",
       render: (_: unknown, task: Task) => (
         <Tag color={task.status === "completed" ? "green" : "orange"}>
-          {task.status}
+          {task?.status?.toUpperCase()}
         </Tag>
       ),
     },
@@ -46,11 +73,13 @@ export const getTaskTableColumns = ({ onDelete, onToggleStatus }: Props) => {
       key: "actions",
       width: "20%",
       align: "center" as const,
+
       render: (_: unknown, task: Task) => (
         <TaskAction
           task={task}
           onDelete={onDelete}
           onToggleStatus={onToggleStatus}
+          loading={loading}
         />
       ),
     },
