@@ -33,8 +33,8 @@ https://adit-assignment.onrender.com/api/health
 
 Detailed documentation for each application:
 
-- [Frontend Documentation](./frontend/README.md)
-- [Backend Documentation](./backend/README.md)
+- [Frontend Documentation](./https://github.com/subroto18/adit_assignment/tree/main/frontend)
+- [Backend Documentation](./https://github.com/subroto18/adit_assignment/tree/main/backend)
 
 ---
 
