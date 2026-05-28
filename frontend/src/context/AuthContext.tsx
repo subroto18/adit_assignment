@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: Props) => {
         }
         setToken(storedToken);
         const response = await authService.getCurrentUser();
-        setUser(response.data.user);
+        setUser(response?.data || {});
       } catch (error) {
         localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.USER);
@@ -55,7 +55,6 @@ export const AuthProvider = ({ children }: Props) => {
         setIsInitializing(false);
       }
     };
-
     initializeAuth();
   }, []);
 
@@ -90,7 +89,6 @@ export const AuthProvider = ({ children }: Props) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-
   if (!context) {
     throw new Error("useAuth must be used within AuthProvider");
   }

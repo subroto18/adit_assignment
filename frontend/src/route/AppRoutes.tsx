@@ -6,6 +6,7 @@ import AuthLayout from "@/features/auth/layouts/AuthLayout";
 import LoginPage from "@/features/auth/pages/LoginPage";
 import RegisterPage from "@/features/auth/pages/RegisterPage";
 import PublicRoute from "./PublicRoute";
+import DashboardPage from "@/features/dashboard/pages/DashboardPage";
 
 const AppRoutes = () => {
   return (
@@ -38,7 +39,10 @@ const AppRoutes = () => {
               <MainLayout />
             </ProtectedRoute>
           }
-        ></Route>
+        >
+          <Route index element={<DashboardPage />} />
+          <Route path="dashboard" element={<DashboardPage />} />
+        </Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>

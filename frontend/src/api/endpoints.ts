@@ -8,7 +8,6 @@ export const API_ENDPOINTS = {
   },
 
   TASK: {
-    GET_ALL: "/tasks",
-    CREATE: "/tasks",
+    ROOT: "/tasks",
   },
 } as const;

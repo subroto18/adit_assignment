@@ -1,5 +1,3 @@
-// components/common/AuthSuspense.tsx
-
 const AuthSuspense = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-950">
