@@ -16,9 +16,17 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 
   const token = authHeader.split(" ")[1];
 
-  const decoded = jwt.verify(token, AUTH_CONFIG.JWT_SECRET);
+  let decoded;
 
-  if (!decoded.userId) {
+  try {
+    decoded = jwt.verify(token, AUTH_CONFIG.JWT_SECRET);
+  } catch (error) {
+    throw new AppError({
+      code: "UNAUTHORIZED",
+    });
+  }
+
+  if (!decoded?.userId) {
     throw new AppError({
       code: "UNAUTHORIZED",
     });
