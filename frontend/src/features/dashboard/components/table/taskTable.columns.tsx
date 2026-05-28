@@ -1,8 +1,8 @@
 import Tooltip from "@/components/ui/Tooltip";
+import Tag from "@/components/ui/Tag";
 import { DASHBOARD_TEXT } from "../../constants/dashboard.text";
 import type { Task } from "../../types/task.types";
 import TaskAction from "./TaskAction";
-import Tag from "@/components/ui/Tag";
 
 type Props = {
   onDelete: (id: string) => void;
@@ -17,6 +17,13 @@ const truncateText = (text: string, limit: number) => {
   return `${text.substring(0, limit)}...`;
 };
 
+const capitalizeText = (text: string) => {
+  if (!text) {
+    return "";
+  }
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
 export const getTaskTableColumns = ({
   onDelete,
   onToggleStatus,
@@ -29,13 +36,16 @@ export const getTaskTableColumns = ({
       key: "title",
       width: "30%",
 
-      render: (value: string) => (
-        <Tooltip title={value}>
-          <span className="font-medium text-slate-800">
-            {truncateText(value, 35)}
-          </span>
-        </Tooltip>
-      ),
+      render: (value: string) => {
+        const formattedValue = capitalizeText(value);
+        return (
+          <Tooltip title={formattedValue}>
+            <span className="font-medium text-slate-800">
+              {truncateText(formattedValue, 35)}
+            </span>
+          </Tooltip>
+        );
+      },
     },
 
     {
@@ -43,15 +53,14 @@ export const getTaskTableColumns = ({
       dataIndex: "description",
       key: "description",
       width: "35%",
-
       render: (value: string) => {
         if (!value) {
           return "-";
         }
-
+        const formattedValue = capitalizeText(value);
         return (
-          <Tooltip title={value}>
-            <span>{truncateText(value, 60)}</span>
+          <Tooltip title={formattedValue}>
+            <span>{truncateText(formattedValue, 60)}</span>
           </Tooltip>
         );
       },
@@ -63,7 +72,7 @@ export const getTaskTableColumns = ({
       width: "15%",
       render: (_: unknown, task: Task) => (
         <Tag color={task.status === "completed" ? "green" : "orange"}>
-          {task?.status?.toUpperCase()}
+          {task.status.toUpperCase()}
         </Tag>
       ),
     },
@@ -73,7 +82,6 @@ export const getTaskTableColumns = ({
       key: "actions",
       width: "20%",
       align: "center" as const,
-
       render: (_: unknown, task: Task) => (
         <TaskAction
           task={task}
