@@ -1,0 +1,76 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Package managers
+package-lock.json
+yarn.lock
+
+# Testing
+/coverage
+
+# Production
+/build
+
+# Environment Variables
+.env
+.env.*.local
+.env.production
+.env.development
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Miscellaneous
+.DS_Store
+*.pem
+*.zip
+
+# Editor files
+*.swp
+*.swo
+*.swn
+*.bak
+*~
+
+# Deployment Scripts
+devDeploy.sh
+liveDeploy.sh
+new.sh
+
+# Configurations
+
+
+# Ignore IDE/Editor settings
+.vscode/
+.idea/
+*.iml
+
+# Ignore custom or temporary files
+ignore
+*.log
+*.tmp
+*.bak
+
+# Optional coverage tools
+.nyc_output
+
+# Ignore build cache
+.cache/
+dist/
+
+# Ignore React-specific files
+.eslintcache
+.next/
+out/
+
+
+# Storybook
+.storybook-out/
+storybook-static/
+
+*.sh
+prompt.txt
