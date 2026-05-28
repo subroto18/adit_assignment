@@ -1,10 +1,25 @@
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
 import { Link } from "react-router-dom";
 
-const LoginForm = () => {
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+
+const RegisterForm = () => {
   return (
     <form className="space-y-5">
+      {/* Username */}
+      <div className="space-y-2">
+        <label htmlFor="name" className="text-sm font-medium text-slate-300">
+          Full Name
+        </label>
+
+        <Input
+          id="name"
+          type="text"
+          placeholder="Enter your full name"
+          className="h-12 border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus:border-cyan-400"
+        />
+      </div>
+
       {/* Email */}
       <div className="space-y-2">
         <label htmlFor="email" className="text-sm font-medium text-slate-300">
@@ -21,47 +36,38 @@ const LoginForm = () => {
 
       {/* Password */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <label
-            htmlFor="password"
-            className="text-sm font-medium text-slate-300"
-          >
-            Password
-          </label>
-
-          <button
-            type="button"
-            className="text-xs font-medium text-cyan-400 transition hover:text-cyan-300"
-          >
-            Forgot Password?
-          </button>
-        </div>
+        <label
+          htmlFor="password"
+          className="text-sm font-medium text-slate-300"
+        >
+          Password
+        </label>
 
         <Input
           id="password"
           type="password"
-          placeholder="Enter your password"
+          placeholder="Create a password"
           className="h-12 border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus:border-cyan-400"
         />
       </div>
 
       {/* Submit */}
       <Button className="h-12 w-full rounded-xl bg-cyan-500 text-sm font-semibold text-white transition hover:bg-cyan-400">
-        Sign In
+        Create Account
       </Button>
 
       {/* Footer */}
       <div className="pt-2 text-center text-sm text-slate-400">
-        Don&apos;t have an account?{" "}
+        Already have an account?{" "}
         <Link
-          to="/auth/register"
+          to="/auth/login"
           className="font-medium text-cyan-400 transition hover:text-cyan-300"
         >
-          Create Account
+          Sign In
         </Link>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
