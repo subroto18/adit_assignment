@@ -1,66 +1,85 @@
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
+import { Form, Input } from "antd";
 import { Link } from "react-router-dom";
+import Button from "@/components/ui/Button";
+import { ROUTES } from "@/constants/routes";
+import AuthError from "./AuthError";
+import { AUTH_TEXT } from "../constants/auth.text";
+import { useLogin } from "../hooks/useLogin";
+import { LOGIN_VALIDATION } from "@/features/auth/validations/auth.validation";
+
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
 
 const LoginForm = () => {
-  return (
-    <form className="space-y-5">
-      {/* Email */}
-      <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium text-slate-300">
-          Email Address
-        </label>
+  const { handleLogin, loading, error } = useLogin();
 
+  return (
+    <Form<LoginFormValues>
+      layout="vertical"
+      onFinish={handleLogin}
+      className="space-y-2"
+    >
+      {/* Error */}
+      {error && <AuthError error={error} />}
+
+      {/* Email */}
+      <Form.Item
+        label={
+          <span className="text-sm font-medium text-slate-300">
+            {AUTH_TEXT.login.emailLabel}
+          </span>
+        }
+        name="email"
+        rules={LOGIN_VALIDATION.email}
+      >
         <Input
-          id="email"
-          type="email"
-          placeholder="Enter your email"
-          className="h-12 border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus:border-cyan-400"
+          size="large"
+          placeholder={AUTH_TEXT.login.emailPlaceholder}
+          className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500"
         />
-      </div>
+      </Form.Item>
 
       {/* Password */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <label
-            htmlFor="password"
-            className="text-sm font-medium text-slate-300"
-          >
-            Password
-          </label>
-
-          <button
-            type="button"
-            className="text-xs font-medium text-cyan-400 transition hover:text-cyan-300"
-          >
-            Forgot Password?
-          </button>
-        </div>
-
-        <Input
-          id="password"
-          type="password"
-          placeholder="Enter your password"
-          className="h-12 border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus:border-cyan-400"
+      <Form.Item
+        label={
+          <span className="text-sm font-medium text-slate-300">
+            {AUTH_TEXT.login.passwordLabel}
+          </span>
+        }
+        name="password"
+        rules={LOGIN_VALIDATION.password}
+      >
+        <Input.Password
+          size="large"
+          placeholder={AUTH_TEXT.login.passwordPlaceholder}
+          className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500"
         />
-      </div>
+      </Form.Item>
 
       {/* Submit */}
-      <Button className="h-12 w-full rounded-xl bg-cyan-500 text-sm font-semibold text-white transition hover:bg-cyan-400">
-        Sign In
-      </Button>
+      <Form.Item className="!mb-2 pt-2">
+        <Button
+          htmlType="submit"
+          loading={loading}
+          className="h-12 w-full rounded-xl bg-cyan-500 text-sm font-semibold text-white transition hover:bg-cyan-400"
+        >
+          {AUTH_TEXT.login.submitButton}
+        </Button>
+      </Form.Item>
 
       {/* Footer */}
       <div className="pt-2 text-center text-sm text-slate-400">
-        Don&apos;t have an account?{" "}
+        {AUTH_TEXT.login.footerText}{" "}
         <Link
-          to="/auth/register"
+          to={ROUTES.AUTH.REGISTER}
           className="font-medium text-cyan-400 transition hover:text-cyan-300"
         >
-          Create Account
+          {AUTH_TEXT.login.footerAction}
         </Link>
       </div>
-    </form>
+    </Form>
   );
 };
 

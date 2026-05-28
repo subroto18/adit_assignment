@@ -1,36 +1,38 @@
+// features/auth/hooks/useRegister.ts
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "@/api/services/auth.service";
-import { useAuth } from "@/context/AuthContext";
 import { ROUTES } from "@/constants/routes";
+import { useAuth } from "@/context/AuthContext";
 import { toast } from "@/utils/toast";
 
-type LoginPayload = {
+type RegisterPayload = {
+  name: string;
   email: string;
   password: string;
 };
 
-export const useLogin = () => {
+export const useRegister = () => {
   const navigate = useNavigate();
+
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const handleLogin = async (payload: LoginPayload) => {
+  const handleRegister = async (payload: RegisterPayload) => {
     try {
       setLoading(true);
       setError(null);
-
-      const response = await authService.login(payload);
-
+      const response = await authService.register(payload);
       login({
         token: response.data.token,
         user: response.data.user,
       });
-      toast.success("Login successful");
+
+      toast.success("Account created successfully");
       navigate(ROUTES.DASHBOARD);
     } catch (err: any) {
-      setError(err?.response?.data?.message || "Login failed");
+      setError(err?.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -39,6 +41,6 @@ export const useLogin = () => {
   return {
     loading,
     error,
-    handleLogin,
+    handleRegister,
   };
 };

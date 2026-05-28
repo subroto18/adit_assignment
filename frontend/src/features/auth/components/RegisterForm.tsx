@@ -1,72 +1,106 @@
-import { Link } from "react-router-dom";
+// features/auth/components/RegisterForm.tsx
 
+import { Form, Input } from "antd";
+import { Link } from "react-router-dom";
 import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
+import { ROUTES } from "@/constants/routes";
+import AuthError from "./AuthError";
+import { AUTH_TEXT } from "../constants/auth.text";
+import { useRegister } from "../hooks/useRegister";
+
+import { REGISTER_VALIDATION } from "../validations/auth.validation";
+
+type RegisterFormValues = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 const RegisterForm = () => {
-  return (
-    <form className="space-y-5">
-      {/* Username */}
-      <div className="space-y-2">
-        <label htmlFor="name" className="text-sm font-medium text-slate-300">
-          Full Name
-        </label>
+  const { handleRegister, loading, error } = useRegister();
 
+  return (
+    <Form<RegisterFormValues>
+      layout="vertical"
+      onFinish={handleRegister}
+      className="space-y-2"
+    >
+      {/* Error */}
+      {error && <AuthError error={error} />}
+
+      {/* Name */}
+      <Form.Item
+        label={
+          <span className="text-sm font-medium text-slate-300">
+            {AUTH_TEXT.register.nameLabel}
+          </span>
+        }
+        name="name"
+        rules={REGISTER_VALIDATION.name}
+      >
         <Input
-          id="name"
-          type="text"
-          placeholder="Enter your full name"
-          className="h-12 border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus:border-cyan-400"
+          size="large"
+          placeholder={AUTH_TEXT.register.namePlaceholder}
+          className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500"
         />
-      </div>
+      </Form.Item>
 
       {/* Email */}
-      <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium text-slate-300">
-          Email Address
-        </label>
-
+      <Form.Item
+        label={
+          <span className="text-sm font-medium text-slate-300">
+            {AUTH_TEXT.register.emailLabel}
+          </span>
+        }
+        name="email"
+        rules={REGISTER_VALIDATION.email}
+      >
         <Input
-          id="email"
-          type="email"
-          placeholder="Enter your email"
-          className="h-12 border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus:border-cyan-400"
+          size="large"
+          placeholder={AUTH_TEXT.register.emailPlaceholder}
+          className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500"
         />
-      </div>
+      </Form.Item>
 
       {/* Password */}
-      <div className="space-y-2">
-        <label
-          htmlFor="password"
-          className="text-sm font-medium text-slate-300"
-        >
-          Password
-        </label>
-
-        <Input
-          id="password"
-          type="password"
-          placeholder="Create a password"
-          className="h-12 border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus:border-cyan-400"
+      <Form.Item
+        label={
+          <span className="text-sm font-medium text-slate-300">
+            {AUTH_TEXT.register.passwordLabel}
+          </span>
+        }
+        name="password"
+        rules={REGISTER_VALIDATION.password}
+      >
+        <Input.Password
+          size="large"
+          placeholder={AUTH_TEXT.register.passwordPlaceholder}
+          className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500"
         />
-      </div>
+      </Form.Item>
 
       {/* Submit */}
-      <Button className="h-12 w-full rounded-xl bg-cyan-500 text-sm font-semibold text-white transition hover:bg-cyan-400">
-        Create Account
-      </Button>
+      <Form.Item className="!mb-2 pt-2">
+        <Button
+          htmlType="submit"
+          loading={loading}
+          className="h-12 w-full rounded-xl bg-cyan-500 text-sm font-semibold text-white transition hover:bg-cyan-400"
+        >
+          {AUTH_TEXT.register.submitButton}
+        </Button>
+      </Form.Item>
 
       {/* Footer */}
       <div className="pt-2 text-center text-sm text-slate-400">
-        Already have an account?{" "}
+        {AUTH_TEXT.register.footerText}{" "}
         <Link
-          to="/auth/login"
+          to={ROUTES.AUTH.LOGIN}
           className="font-medium text-cyan-400 transition hover:text-cyan-300"
         >
-          Sign In
+          {AUTH_TEXT.register.footerAction}
         </Link>
       </div>
-    </form>
+    </Form>
   );
 };
 

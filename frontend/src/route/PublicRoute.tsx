@@ -1,7 +1,9 @@
-// routes/ProtectedRoute.tsx
+// routes/PublicRoute.tsx
 
 import type { ReactNode } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+
+import { Navigate } from "react-router-dom";
+
 import { ROUTES } from "@/constants/routes";
 import { useAuth } from "@/context/AuthContext";
 import AuthSuspense from "@/components/common/AuthSuspense";
@@ -10,26 +12,18 @@ type Props = {
   children: ReactNode;
 };
 
-const ProtectedRoute = ({ children }: Props) => {
-  const location = useLocation();
+const PublicRoute = ({ children }: Props) => {
   const { isAuthenticated, isInitializing } = useAuth();
+
   if (isInitializing) {
     return <AuthSuspense />;
   }
 
-  if (!isAuthenticated) {
-    return (
-      <Navigate
-        to={ROUTES.AUTH.LOGIN}
-        state={{
-          from: location.pathname,
-        }}
-        replace
-      />
-    );
+  if (isAuthenticated) {
+    return <Navigate to={ROUTES.DASHBOARD} replace />;
   }
 
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default PublicRoute;

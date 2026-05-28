@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom";
-
 import AuthFooter from "../components/AuthFooter";
 import AuthHeader from "../components/AuthHeader";
-import AuthError from "../components/AuthError";
 
 const AuthLayout = () => {
   return (
@@ -16,7 +14,6 @@ const AuthLayout = () => {
         <div className="w-full max-w-md">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
             <AuthHeader />
-            <AuthError />
             <div className="mt-6">
               <Outlet />
             </div>
